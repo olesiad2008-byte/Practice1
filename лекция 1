@@ -10,3 +10,82 @@ print(f"{kelvin}K")
 
 #Здание 2
 
+number = int(input())
+
+if number % 2 == 0:
+    print(f"Число {number} является четным.")
+else:
+    print(f"Число {number} является нечетным.")
+
+if number > 0:
+    print(f"Число {number} положительное.")
+elif number < 0:
+    print(f"Число {number} отрицательное.")
+else:
+    print("Число равно нулю.")
+
+if 10 <= number <= 50:
+    print(f"Число {number} принадлежит диапазону [10, 50].")
+else:
+    print(f"Число {number} НЕ принадлежит диапазону [10, 50].")
+
+
+#Задание 3
+
+import random
+
+letters =  'ZXCVBNMLKJHGFDSAQWERTYUIOP'
+digits = '0123456789'
+specials = "!@#$%^&*"
+
+part_letters = random.choices(letters, k=3)
+part_digits = random.choices(digits, k=3)
+part_specials = random.choices(specials, k=2)
+
+password_list = part_letters + part_digits + part_specials
+
+random.shuffle(password_list)
+
+password = "".join(password_list)
+
+print(password)
+
+
+#Задание 4
+
+
+from collections import Counter
+
+text = input().lower()
+
+counts = Counter(text)
+
+top_3 = counts.most_common(3)
+
+print("\n3 самых частых символа:")
+for char, count in top_3:
+    print(f"'{char}': {count} раз")
+
+
+
+
+#Задание 5
+
+n = int(input())
+
+if n < 2:
+    print("В диапазоне нет простых чисел.")
+else:
+    is_prime = [True] * (n + 1)
+    
+    is_prime[0] = is_prime[1] = False
+
+    for p in range(2, int(n**0.5) + 1):
+        if is_prime[p]:
+            for i in range(p * p, n + 1, p):
+                is_prime[i] = False
+    primes = [i for i in range(2, n + 1) if is_prime[i]]
+
+    print(primes)
+
+
