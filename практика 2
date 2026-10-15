@@ -30,3 +30,19 @@ def caesar_cipher(text, shift, mode='encrypt'):
             result.append(char)
     return ''.join(result)
 
+
+№ Задание 2
+
+def check_winners(scores, student_score):
+    # Сортируем список баллов по убыванию
+    sorted_scores = sorted(scores, reverse=True)
+    # Берем первые три места
+    top_three = sorted_scores[:3]
+    
+    if student_score in top_three:
+        print("Вы в тройке победителей!")
+    else:
+        print("Вы не попали в тройку победителей.")
+
+
+
