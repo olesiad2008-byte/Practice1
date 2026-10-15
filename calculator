@@ -1,1 +1,23 @@
+def add_numbers(a, b):
+    """
+    Складывает два числа типа float.
+    """
+    return a + b
+def assert_equal(actual, expected):
+    if actual == expected:
+        print("OK")
+    else:
+        print("No")
+assert_equal(add_numbers(1.0, 2.0), 3.0)
+assert_equal(add_numbers(0.1, 0.3), 0.4)
+assert_equal(add_numbers(-5.0, 0.2), -4.8)
 
+def divide(a, b):
+    """
+    Делит a на b.
+    Если b == 0, возвращает None и выводит предупреждение.
+    """
+    if b == 0:
+        print("Ошибка: Деление на ноль невозможно!")
+        return None
+    return a / b
