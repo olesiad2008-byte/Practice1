@@ -1,1 +1,32 @@
+# ЗАДАНИЕ 1
+
+def caesar_cipher(text, shift, mode='encrypt'):
+    def shift_char(char, shift, alphabet):
+        if char not in alphabet:
+            return char
+        idx = alphabet.index(char)
+        if mode == 'encrypt':
+            new_idx = (idx + shift) % len(alphabet)
+        else:
+            new_idx = (idx - shift) % len(alphabet)
+        return alphabet[new_idx]
+
+    russian_lower = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
+    russian_upper = russian_lower.upper()
+    english_lower = 'abcdefghijklmnopqrstuvwxyz'
+    english_upper = english_lower.upper()
+
+    result = []
+    for char in text:
+        if char in russian_lower:
+            result.append(shift_char(char, shift, russian_lower))
+        elif char in russian_upper:
+            result.append(shift_char(char, shift, russian_upper))
+        elif char in english_lower:
+            result.append(shift_char(char, shift, english_lower))
+        elif char in english_upper:
+            result.append(shift_char(char, shift, english_upper))
+        else:
+            result.append(char)
+    return ''.join(result)
 
