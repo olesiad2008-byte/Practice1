@@ -76,7 +76,68 @@ def print_pack_report(num):
             print(f"{i} - расфасуем по 3")
         else:
             print(f"{i} - не заказываем!")
+# Задание 4
 
+import random
+import string
+
+
+def generate_password(length, use_lower, use_upper, use_digits, use_special):
+    """
+    Генерирует случайный пароль по заданным настройкам.
+    
+    Параметры:
+        length       — длина пароля
+        use_lower    — включать строчные буквы (a-z)
+        use_upper    — включать заглавные буквы (A-Z)
+        use_digits   — включать цифры (0-9)
+        use_special  — включать спецсимволы (!@#$%...)
+    """
+    chars = ''  # здесь соберём все разрешённые символы
+    
+    # Добавляем наборы символов по выбору пользователя
+    if use_lower:
+        chars += string.ascii_lowercase
+    if use_upper:
+        chars += string.ascii_uppercase
+    if use_digits:
+        chars += string.digits
+    if use_special:
+        chars += string.punctuation
+    
+    # Если пользователь ничего не выбрал — пароль не из чего собирать
+    if not chars:
+        return "Ошибка: выберите хотя бы один тип символов."
+    
+    # Выбираем случайный символ из chars length раз и склеиваем в строку
+    password = ''.join(random.choice(chars) for _ in range(length))
+    return password
+
+
+def main():
+    """Интерактивный интерфейс: спрашивает настройки и печатает пароль."""
+    print("Генератор паролей")
+    
+    try:
+        # Запрашиваем длину пароля
+        length = int(input("Введите длину пароля: "))
+        
+        # Запрашиваем наборы символов; 'y' → True, всё остальное → False
+        use_lower = input("Использовать строчные буквы? (y/n): ").lower() == 'y'
+        use_upper = input("Использовать заглавные буквы? (y/n): ").lower() == 'y'
+        use_digits = input("Использовать цифры? (y/n): ").lower() == 'y'
+        use_special = input("Использовать спецсимволы? (y/n): ").lower() == 'y'
+        
+        # Генерируем и выводим результат
+        pwd = generate_password(length, use_lower, use_upper, use_digits, use_special)
+        print(f"Ваш пароль: {pwd}")
+    
+    except ValueError:
+        # Сюда попадём, если length — не число
+        print("Некорректный ввод.")
+
+
+main()
 
 
 
