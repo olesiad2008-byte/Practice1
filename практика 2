@@ -1,16 +1,27 @@
 # ЗАДАНИЕ 1
 
 def caesar_cipher(text, shift, mode='encrypt'):
+    """
+    Шифр Цезаря для русского и английского алфавитов.
+    mode='encrypt' — шифрует, mode='decrypt' — расшифровывает.
+    """
+    
     def shift_char(char, shift, alphabet):
+        """Сдвигает один символ на shift позиций внутри его алфавита."""
         if char not in alphabet:
-            return char
+            return char  # не буква — оставляем как есть
+        
         idx = alphabet.index(char)
+        
+        # Сдвигаем индекс и зацикливаем через остаток от деления
         if mode == 'encrypt':
             new_idx = (idx + shift) % len(alphabet)
         else:
             new_idx = (idx - shift) % len(alphabet)
+        
         return alphabet[new_idx]
 
+    # Четыре набора букв: русские/английские, строчные/заглавные
     russian_lower = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
     russian_upper = russian_lower.upper()
     english_lower = 'abcdefghijklmnopqrstuvwxyz'
@@ -18,6 +29,7 @@ def caesar_cipher(text, shift, mode='encrypt'):
 
     result = []
     for char in text:
+        # Для каждой буквы подбираем её алфавит и сдвигаем
         if char in russian_lower:
             result.append(shift_char(char, shift, russian_lower))
         elif char in russian_upper:
@@ -27,8 +39,10 @@ def caesar_cipher(text, shift, mode='encrypt'):
         elif char in english_upper:
             result.append(shift_char(char, shift, english_upper))
         else:
-            result.append(char)
+            result.append(char)  # символ не из алфавита — не трогаем
+
     return ''.join(result)
+
 
 
 № Задание 2
