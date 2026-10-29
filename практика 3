@@ -1,0 +1,77 @@
+# Задачи №1, №2 и №3
+from datetime import datetime
+
+# Задача #1: Базовый класс Book 
+class Book:
+    def __init__(self, title, author, year):
+        # Инициализация атрибутов книги
+        self.title = title
+        self.author = author
+        self.year = year
+
+    def info(self):
+        # Возвращает строку с базовой информацией
+        return f"Книга: '{self.title}', Автор: {self.author}, Год: {self.year}"
+
+    # Задача #3: Магические методы 
+    
+    def __str__(self):
+        # Красивое строковое представление для print()
+        return f"'{self.title}' ({self.author})"
+
+    def __eq__(self, other):
+        # Сравнение двух книг (равны, если совпадают название и автор)
+        if isinstance(other, Book):
+            return self.title == other.title and self.author == other.author
+        return False
+
+    #  Задача #3: Свойство (property) для возраста 
+    
+    @property
+    def age(self):
+        # Вычисляет возраст книги на текущий год
+        current_year = datetime.now().year
+        return current_year - self.year
+
+    #  Задача #3: Классовый метод 
+    
+    @classmethod
+    def from_string(cls, data_str):
+        # Создает объект из строки формата "Название;Автор;Год"
+        title, author, year = data_str.split(';')
+        return cls(title, author, int(year))
+
+
+#  Задача #2: Дочерний класс Ebook 
+
+class Ebook(Book):
+    def __init__(self, title, author, year, format):
+        # Вызов конструктора родительского класса
+        super().__init__(title, author, year)
+        # Дополнительный атрибут
+        self.format = format
+
+    def info(self):
+        # Переопределение метода: добавляем информацию о формате
+        base_info = super().info()
+        return f"{base_info}, Формат: {self.format}"
+
+
+#  Проверка работы 
+print("--- Проверка задач ---")
+# Используем Достоевского
+book1 = Book("Преступление и наказание", "Ф.М. Достоевский", 1866)
+print(book1.info())
+print(f"Возраст книги: {book1.age} лет")
+print(f"Строковое представление (__str__): {book1}")
+
+# Проверка классового метода (Используем Толстого)
+book2 = Book.from_string("Война и мир;Л.Н. Толстой;1869")
+print(book2.info())
+
+# Проверка Ebook (Задача 2) - снова Достоевский
+eb1 = Ebook("Идиот", "Ф.М. Достоевский", 1869, "PDF")
+print(eb1.info())
+
+# Проверка магического метода __eq__
+print(f"Книга 1 равна сама себе? {book1 == book1}") 
