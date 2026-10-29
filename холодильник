@@ -1,10 +1,10 @@
 import datetime
 from decimal import Decimal
 
-# Константа формата даты (по подсказке из задания)
+# Константа формата даты
 DATE_FORMAT = '%Y-%m-%d'
 
-# Начальный словарь goods (пример из задания)
+# Начальный словарь goods
 goods = {
     'Пельмени Универсальные': [
         {'amount': Decimal('0.5'), 'expiration_date': datetime.date(2023, 7, 15)},
