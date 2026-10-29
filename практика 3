@@ -75,3 +75,69 @@ print(eb1.info())
 
 # Проверка магического метода __eq__
 print(f"Книга 1 равна сама себе? {book1 == book1}") 
+
+#Практика #1: Иерархия сотрудников (Наследование)
+
+class Employee:
+    def __init__(self, name, base_salary):
+        self.name = name
+        self.base_salary = base_salary
+
+    def calculate_salary(self):
+        # Базовая зарплата для обычного сотрудника
+        return self.base_salary
+
+class Manager(Employee):
+    def __init__(self, name, base_salary, bonus):
+        super().__init__(name, base_salary)
+        self.bonus = bonus # Бонус менеджера
+
+    def calculate_salary(self):
+        # Зарплата менеджера = оклад + бонус
+        return self.base_salary + self.bonus
+
+class Developer(Employee):
+    def __init__(self, name, base_salary, project_rate, num_projects):
+        super().__init__(name, base_salary)
+        self.project_rate = project_rate
+        self.num_projects = num_projects
+
+    def calculate_salary(self):
+        # Зарплата разработчика = оклад + (ставка * кол-во проектов)
+        return self.base_salary + (self.project_rate * self.num_projects)
+
+# Проверка
+print("\n--- Практика #1 ---")
+dev = Developer("Иван", 50000, 10000, 3)
+mgr = Manager("Анна", 80000, 25000)
+print(f"Зарплата разработчика {dev.name}: {dev.calculate_salary()} руб.")
+print(f"Зарплата менеджера {mgr.name}: {mgr.calculate_salary()} руб.")
+
+
+#Практика #2: Транспортные средства (Полиморфизм)
+
+class Vehicle:
+    def get_description(self):
+        # Базовый метод, который будут переопределять дочерние классы
+        return "Это транспортное средство"
+
+class Car(Vehicle):
+    def get_description(self):
+        return "Легковой автомобиль: 4 колеса, бензиновый двигатель."
+
+class Bicycle(Vehicle):
+    def get_description(self):
+        return "Велосипед: 2 колеса, приводится в движение педалями."
+
+class Airplane(Vehicle):
+    def get_description(self):
+        return "Самолет: 2 крыла, реактивные двигатели, летает."
+
+# Проверка (демонстрация полиморфизма)
+print("\n--- Практика #2 ---")
+# Создаем список разных объектов
+vehicles = [Car(), Bicycle(), Airplane()]
+
+# Вызываем один и тот же метод, но результат разный
+for v in vehicles:
+    print(v.get_description())
