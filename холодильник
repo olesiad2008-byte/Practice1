@@ -34,7 +34,6 @@ def add(items, title, amount, expiration_date=None):
 def add_by_note(items, note):
     """
     Разбирает текстовую строку и вызывает функцию add().
-    Формат: "Название продукта Количество [Дата]"
     """
     parts = note.split()
     # Проверяем, содержит ли последняя часть дефисы (признак даты)
