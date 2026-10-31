@@ -1,143 +1,124 @@
 # Задачи №1, №2 и №3
 from datetime import datetime
 
-# Задача #1: Базовый класс Book 
+
+# Задача #1: Базовый класс Book
 class Book:
     def __init__(self, title, author, year):
         # Инициализация атрибутов книги
         self.title = title
         self.author = author
         self.year = year
-
     def info(self):
         # Возвращает строку с базовой информацией
         return f"Книга: '{self.title}', Автор: {self.author}, Год: {self.year}"
 
-    # Задача #3: Магические методы 
-    
+    # Задача #3: Магические методы
     def __str__(self):
         # Красивое строковое представление для print()
         return f"'{self.title}' ({self.author})"
-
     def __eq__(self, other):
         # Сравнение двух книг (равны, если совпадают название и автор)
         if isinstance(other, Book):
             return self.title == other.title and self.author == other.author
         return False
 
-    #  Задача #3: Свойство (property) для возраста 
-    
+    # Задача #3: Свойство (property) для возраста
     @property
     def age(self):
         # Вычисляет возраст книги на текущий год
         current_year = datetime.now().year
         return current_year - self.year
 
-    #  Задача #3: Классовый метод 
-    
+    # Задача #3: Классовый метод
     @classmethod
     def from_string(cls, data_str):
         # Создает объект из строки формата "Название;Автор;Год"
-        title, author, year = data_str.split(';')
+        title, author, year = data_str.split(";")
         return cls(title, author, int(year))
 
 
-#  Задача #2: Дочерний класс Ebook 
-
+# Задача #2: Дочерний класс Ebook
 class Ebook(Book):
-    def __init__(self, title, author, year, format):
+    def __init__(self, title, author, year, file_format):
         # Вызов конструктора родительского класса
         super().__init__(title, author, year)
         # Дополнительный атрибут
-        self.format = format
-
+        self.file_format = file_format
     def info(self):
         # Переопределение метода: добавляем информацию о формате
         base_info = super().info()
-        return f"{base_info}, Формат: {self.format}"
+        return f"{base_info}, Формат: {self.file_format}"
 
 
-#  Проверка работы 
-print("--- Проверка задач ---")
-# Используем Достоевского
-book1 = Book("Преступление и наказание", "Ф.М. Достоевский", 1866)
-print(book1.info())
-print(f"Возраст книги: {book1.age} лет")
-print(f"Строковое представление (__str__): {book1}")
-
-# Проверка классового метода (Используем Толстого)
-book2 = Book.from_string("Война и мир;Л.Н. Толстой;1869")
-print(book2.info())
-
-# Проверка Ebook (Задача 2) - снова Достоевский
-eb1 = Ebook("Идиот", "Ф.М. Достоевский", 1869, "PDF")
-print(eb1.info())
-
-# Проверка магического метода __eq__
-print(f"Книга 1 равна сама себе? {book1 == book1}") 
-
-#Практика #1: Иерархия сотрудников (Наследование)
-
+# Практика #1: Иерархия сотрудников (Наследование)
 class Employee:
     def __init__(self, name, base_salary):
         self.name = name
         self.base_salary = base_salary
-
     def calculate_salary(self):
         # Базовая зарплата для обычного сотрудника
         return self.base_salary
-
 class Manager(Employee):
     def __init__(self, name, base_salary, bonus):
         super().__init__(name, base_salary)
-        self.bonus = bonus # Бонус менеджера
-
+        self.bonus = bonus  # Бонус менеджера
     def calculate_salary(self):
         # Зарплата менеджера = оклад + бонус
         return self.base_salary + self.bonus
-
 class Developer(Employee):
     def __init__(self, name, base_salary, project_rate, num_projects):
         super().__init__(name, base_salary)
         self.project_rate = project_rate
         self.num_projects = num_projects
-
     def calculate_salary(self):
         # Зарплата разработчика = оклад + (ставка * кол-во проектов)
         return self.base_salary + (self.project_rate * self.num_projects)
 
-# Проверка
-print("\n--- Практика #1 ---")
-dev = Developer("Иван", 50000, 10000, 3)
-mgr = Manager("Анна", 80000, 25000)
-print(f"Зарплата разработчика {dev.name}: {dev.calculate_salary()} руб.")
-print(f"Зарплата менеджера {mgr.name}: {mgr.calculate_salary()} руб.")
 
-
-#Практика #2: Транспортные средства (Полиморфизм)
-
+# Практика #2: Транспортные средства (Полиморфизм)
 class Vehicle:
     def get_description(self):
         # Базовый метод, который будут переопределять дочерние классы
         return "Это транспортное средство"
-
 class Car(Vehicle):
     def get_description(self):
         return "Легковой автомобиль: 4 колеса, бензиновый двигатель."
-
 class Bicycle(Vehicle):
     def get_description(self):
         return "Велосипед: 2 колеса, приводится в движение педалями."
-
 class Airplane(Vehicle):
     def get_description(self):
         return "Самолет: 2 крыла, реактивные двигатели, летает."
+def main():
+    print("--- Проверка задач ---")
+    # Используем Достоевского
+    book1 = Book("Преступление и наказание", "Ф.М. Достоевский", 1866)
+    print(book1.info())
+    print(f"Возраст книги: {book1.age} лет")
+    print(f"Строковое представление (__str__): {book1}")
+    # Проверка классового метода
+    book2 = Book.from_string("Война и мир;Л.Н. Толстой;1869")
+    print(book2.info())
+    # Проверка Ebook (Задача 2)
+    eb1 = Ebook("Идиот", "Ф.М. Достоевский", 1869, "PDF")
+    print(eb1.info())
+    # Проверка магического метода __eq__
+    print(f"Книга 1 равна сама себе? {book1 == book1}")
 
-# Проверка (демонстрация полиморфизма)
-print("\n--- Практика #2 ---")
-# Создаем список разных объектов
-vehicles = [Car(), Bicycle(), Airplane()]
+    # Практика #1
+    print("--- Практика #1 ---")
+    dev = Developer("Иван", 50000, 10000, 3)
+    mgr = Manager("Анна", 80000, 25000)
+    print(f"Зарплата разработчика {dev.name}: {dev.calculate_salary()} руб.")
+    print(f"Зарплата менеджера {mgr.name}: {mgr.calculate_salary()} руб.")
 
-# Вызываем один и тот же метод, но результат разный
-for v in vehicles:
-    print(v.get_description())
+    # Практика #2
+    print("--- Практика #2 ---")
+    vehicles = [Car(), Bicycle(), Airplane()]
+    for v in vehicles:
+        print(v.get_description())
+
+
+if __name__ == "__main__":
+    main()
